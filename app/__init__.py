@@ -1,7 +1,7 @@
 import os
 
-from flask import Flask
-
+from flask import Flask, json
+from app.barcode.service import Service as Barcode
 
 def create_app(test_config=None):
     # create and configure the app
@@ -24,6 +24,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    @app.route("/barcodes", methods=["GET"])
+    def index():
+        return json_response(Barcode().find_all_barcodes())
+
     # a simple page that says hello
     @app.route('/hello')
     def hello():
@@ -40,3 +44,11 @@ def create_app(test_config=None):
     app.add_url_rule('/', endpoint='index')
 
     return app
+
+
+def json_response(payload, status=200):
+    return (json.dumps(payload), status, {'content-type': 'application/json'})
+
+
+def random_string():
+    return ''.join([random.choice(string.ascii_letters + string.digits) for n in range(32)])
