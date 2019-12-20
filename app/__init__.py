@@ -1,6 +1,10 @@
 import os
 
+import time
 from flask import Flask, json
+from bson.objectid import ObjectId
+from fpdf import FPDF
+
 from app.barcode.service import Service as Barcode
 
 def create_app(test_config=None):
@@ -27,6 +31,54 @@ def create_app(test_config=None):
     @app.route("/barcodes", methods=["GET"])
     def index():
         return json_response(Barcode().find_all_barcodes())
+
+    @app.route("/barcode/<string:id>", methods=["GET"])
+    def show(id):
+        barcode = Barcode().find_barcode(ObjectId(id))
+        if barcode:
+            return json_response(barcode)
+        else:
+            return json_response({'error': 'barcode not found'}, 404)
+
+
+    @app.route("/barcode/<string:id>", methods=["DELETE"])
+    def delete(id):
+        barcode_service = Barcode()
+        if barcode_service.delete_barcode_for(ObjectId(id)):
+            return json_response({})
+        else:
+            return json_response({'error': 'barcode not found'}, 404)
+
+    @app.route("/barcodes/pdf", methods=["GET"])
+    def pdf():
+        timestamp = int(round(time.time() * 1000))
+        pdf = FPDF()
+        pdf.add_page()
+
+        barcode_service = Barcode()
+        barcodes = barcode_service.find_all_barcodes()
+
+        image_x = pdf.w / 4
+        image_y = 20
+
+        for barcode in barcodes:
+            timestamp = int(round(time.time() * 1000))
+
+            directory = app.config['BARCODE_DIRECTORY'] + '/' + barcode['_id']
+            pdf.image(directory  + '/result.png', x=image_x - (app.config['BARCODE_IMAGE_WIDTH'] / 2), y=image_y, w=app.config['BARCODE_IMAGE_WIDTH'])
+
+            image_x += pdf.w / 4
+            if image_x >= pdf.w:
+                image_x = pdf.w / 4
+                image_y += 100
+                if image_y >= pdf.h:
+                    pdf.add_page()
+                    image_y = 20
+
+        response = make_response(pdf.output(dest='S').encode('latin-1'))
+        response.headers.set('Content-Disposition', 'attachment', filename='barcodes_' + str(timestamp) + '.pdf')
+        response.headers.set('Content-Type', 'application/pdf')
+        return response
 
     # a simple page that says hello
     @app.route('/hello')
