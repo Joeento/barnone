@@ -1,11 +1,18 @@
 import os
 
+import random
 import time
-from flask import Flask, json
+import string
+import datetime
+from flask import Flask, json, request, make_response
 from bson.objectid import ObjectId
 from fpdf import FPDF
+from werkzeug.utils import secure_filename
+import barcode as barcode_builder
 
 from app.barcode.service import Service as Barcode
+from app.decoder.barcodedecoder import BarcodeDecoder
+from app.barcode.schema import BarcodeSchema
 
 def create_app(test_config=None):
     # create and configure the app
@@ -32,6 +39,56 @@ def create_app(test_config=None):
     def index():
         return json_response(Barcode().find_all_barcodes())
 
+    @app.route("/barcodes", methods=["POST"])
+    def create():
+        # check if the post request has the file part
+        if 'images[]' not in request.files:
+            return json_response({'error': 'file did not upload correctly'}, 422)
+
+        images = request.files.getlist('images[]')
+        barcode_counter = 0
+        for image in images:
+            #Save to temp
+            tmp_filename = '/tmp/' + random_string() + '.png'
+            file = image
+            file.save(tmp_filename)
+            #Analyze
+            bd = BarcodeDecoder(tmp_filename)
+            barcode_value, barcode_type = bd.extract()
+
+            #If a value is extracted
+            if barcode_value:
+                #Save to db
+                data = {}
+                data['value'] = barcode_value
+                data['upload_time'] = str(datetime.datetime.now())
+
+                barcode = BarcodeSchema().load(json.loads(json.dumps(data)))
+
+                if hasattr(barcode, 'errors'):
+                    return json_response({'error': barcode.errors}, 422)
+
+                barcode = Barcode().create_barcode_for(barcode)
+                #Move to folder named after ID
+                directory = app.config['BARCODE_DIRECTORY'] + barcode['_id']
+
+                os.makedirs(directory)
+                filename = secure_filename('source.png')
+                os.rename(tmp_filename, os.path.join(directory, filename))
+
+                #Generate barcode image
+                image_name = barcode_builder.generate(barcode_type, barcode_value, output=directory + '/result',
+                                                      writer=barcode_builder.writer.ImageWriter())
+                barcode_counter += 1
+            else:
+                os.remove(tmp_filename)
+
+        return json_response({
+            'images_sent': len(images),
+            'barcodes_found': barcode_counter,
+            'barcodes': Barcode().find_all_barcodes()
+        })
+
     @app.route("/barcode/<string:id>", methods=["GET"])
     def show(id):
         barcode = Barcode().find_barcode(ObjectId(id))
@@ -39,7 +96,6 @@ def create_app(test_config=None):
             return json_response(barcode)
         else:
             return json_response({'error': 'barcode not found'}, 404)
-
 
     @app.route("/barcode/<string:id>", methods=["DELETE"])
     def delete(id):

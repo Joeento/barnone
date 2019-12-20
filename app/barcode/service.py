@@ -17,7 +17,7 @@ class Service(object):
 
     def create_barcode_for(self, barcode):
         self.repo_client.create(self.prepare_barcode(barcode))
-        return self.dump(barcode.data)
+        return self.dump(barcode)
 
     def delete_barcode_for(self, id):
         records_affected = self.repo_client.delete({'_id': id})
@@ -27,5 +27,5 @@ class Service(object):
         return BarcodeSchema().dump(data)
 
     def prepare_barcode(self, barcode):
-        data = barcode.data
+        data = barcode
         return data
