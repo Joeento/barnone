@@ -64,8 +64,8 @@ def create_app(test_config=None):
         for barcode in barcodes:
             timestamp = int(round(time.time() * 1000))
 
-            directory = app.config['BARCODE_DIRECTORY'] + '/' + barcode['_id']
-            pdf.image(directory  + '/result.png', x=image_x - (app.config['BARCODE_IMAGE_WIDTH'] / 2), y=image_y, w=app.config['BARCODE_IMAGE_WIDTH'])
+            directory = app.config['BARCODE_DIRECTORY'] + barcode['_id']
+            pdf.image(directory + '/result.png', x=image_x - (app.config['BARCODE_IMAGE_WIDTH'] / 2), y=image_y, w=app.config['BARCODE_IMAGE_WIDTH'])
 
             image_x += pdf.w / 4
             if image_x >= pdf.w:
