@@ -84,6 +84,4 @@ class BarcodeDecoder:
         kernel_motion_blur = kernel_motion_blur / kernel_size
         image = cv2.filter2D(image, -1, kernel_motion_blur)
 
-        cv2.imwrite('messigray.png',image)
-
         return image
