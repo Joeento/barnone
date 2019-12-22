@@ -1,5 +1,5 @@
 # Editable Git install with no remote (app==1.1.0)
--e /Users/ekudler/sites/barnone
+-e .
 barnone==1.0.0
 Click==7.0
 Flask==1.1.1
