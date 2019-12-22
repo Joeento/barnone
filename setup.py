@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='app',
-    version='1.0.9',
+    version='1.1.0',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -15,6 +15,7 @@ setup(
         'python-barcode',
         'pyzbar',
         'imutils',
-        'Pillow'
-    ],
+        'Pillow',
+        'uwsgi'
+    ]
 )

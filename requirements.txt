@@ -1,0 +1,18 @@
+# Editable Git install with no remote (app==1.1.0)
+-e /Users/ekudler/sites/barnone
+barnone==1.0.0
+Click==7.0
+Flask==1.1.1
+fpdf==1.7.2
+imutils==0.5.3
+itsdangerous==1.1.0
+Jinja2==2.10.3
+MarkupSafe==1.1.1
+marshmallow==3.3.0
+numpy==1.17.4
+Pillow==6.2.1
+pymongo==3.10.0
+python-barcode==0.10.0
+pyzbar==0.1.8
+uWSGI==2.0.18
+Werkzeug==0.16.0
