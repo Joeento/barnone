@@ -1,12 +1,13 @@
 import os
 from pymongo import MongoClient
+from config.default import DefaultConfig
 
 COLLECTION_NAME = 'barcodes'
 
 
 class MongoRepository(object):
     def __init__(self):
-        mongo_url = os.environ.get('MONGO_URL')
+        mongo_url = DefaultConfig().MONGO_URL
         self.db = MongoClient(mongo_url).barnone
 
     def find_all(self, selector):
