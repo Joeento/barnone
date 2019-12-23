@@ -36,11 +36,11 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/barcodes", methods=["GET"])
+    @app.route("/api/barcodes", methods=["GET"])
     def index():
         return json_response(Barcode().find_all_barcodes())
 
-    @app.route("/barcodes", methods=["POST"])
+    @app.route("/api/barcodes", methods=["POST"])
     def create():
         # check if the post request has the file part
         if 'images[]' not in request.files:
@@ -90,7 +90,7 @@ def create_app(test_config=None):
             'barcodes': Barcode().find_all_barcodes()
         })
 
-    @app.route("/barcode/<string:id>", methods=["GET"])
+    @app.route("/api/barcode/<string:id>", methods=["GET"])
     def show(id):
         barcode = Barcode().find_barcode(ObjectId(id))
         if barcode:
@@ -98,7 +98,7 @@ def create_app(test_config=None):
         else:
             return json_response({'error': 'barcode not found'}, 404)
 
-    @app.route("/barcode/<string:id>", methods=["DELETE"])
+    @app.route("/api/barcode/<string:id>", methods=["DELETE"])
     def delete(id):
         barcode_service = Barcode()
         if barcode_service.delete_barcode_for(ObjectId(id)):
@@ -106,7 +106,7 @@ def create_app(test_config=None):
         else:
             return json_response({'error': 'barcode not found'}, 404)
 
-    @app.route("/barcodes/pdf", methods=["GET"])
+    @app.route("/api/barcodes/pdf", methods=["GET"])
     def pdf():
         timestamp = int(round(time.time() * 1000))
         pdf = FPDF()
@@ -138,7 +138,7 @@ def create_app(test_config=None):
         return response
 
     # a simple page that says hello
-    @app.route('/hello')
+    @app.route('/api/hello')
     def hello():
         return 'Hello, World!'
 
