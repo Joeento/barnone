@@ -8,7 +8,9 @@ from flask import Flask, json, request, make_response
 from bson.objectid import ObjectId
 from fpdf import FPDF
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
 import barcode as barcode_builder
+
 
 from config.default import DefaultConfig
 from app.barcode.service import Service as Barcode
@@ -18,6 +20,7 @@ from app.barcode.schema import BarcodeSchema
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'app.sqlite'),
