@@ -16,6 +16,7 @@ setup(
         'pyzbar',
         'imutils',
         'Pillow',
-        'uwsgi'
+        'uwsgi',
+        'Flask-Cors'
     ]
 )
