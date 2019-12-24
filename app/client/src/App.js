@@ -1,17 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 import NavBar from './ui/NavBar';
 import UploadPanel from './ui/UploadPanel';
 import ResultsPanel from './ui/ResultsPanel';
 import UploadModal from './modals/UploadModal';
 import UploadResultsSnackbar from './snackbars/UploadResultsSnackbar';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -87,7 +84,7 @@ class App extends React.Component {
     this.setState({
       uploadSnackbarOpen: true,
       images_sent: images_sent,
-      barcodes_found, barcodes_found
+      barcodes_found: barcodes_found
     });
   }
 

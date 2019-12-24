@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   paper: {
@@ -43,7 +42,7 @@ class UploadModal extends React.Component {
             Your file(s) are being uploaded and processed.  If any barcodes are found, they will appear in the right panel.
           </Typography>
           <div>
-            <img className={classes.loadingImage} src="images/loading.gif" />
+            <img className={classes.loadingImage} src="images/loading.gif" alt="Loading..." />
           </div>
         </div>
       </Modal>

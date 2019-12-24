@@ -8,15 +8,12 @@ const client = axios.create({
 });
 
 class APIClient {
- constructor() {
- }
-
  createBarcode(barcode) {
    return this.perform('post', '/api/barcodes', barcode);
  }
 
  deleteBarcode(barcode) {
-   return this.perform('delete', '/api/barcode/${barcode.id}');
+   return this.perform('delete', '/api/barcode/' + barcode.id);
  }
 
  getBarcodes() {

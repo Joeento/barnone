@@ -1,13 +1,9 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 
 
 const styles = theme => ({
@@ -27,11 +23,6 @@ const styles = theme => ({
 });
 
 class ResultsPanel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-
   render() {
     const { classes } = this.props;
 
