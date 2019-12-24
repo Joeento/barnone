@@ -116,7 +116,7 @@ class App extends React.Component {
           <UploadResultsSnackbar open={this.state.uploadSnackbarOpen} images_sent={this.state.images_sent} barcodes_found={this.state.barcodes_found} handleClose={this.closeUploadSnackbar} />
           <UploadModal open={this.state.uploadModalOpen} handleClose={this.closeUploadModal} />
           <Tooltip title="Export Barcodes to PDF">
-            <Fab href="http://localhost:4433/barcodes/pdf" className={classes.fab} color='primary'>
+            <Fab href="/api/barcodes/pdf" className={classes.fab} color='primary'>
               <SaveAltIcon />
             </Fab>
           </Tooltip>
