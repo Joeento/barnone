@@ -41,7 +41,7 @@ class ResultsPanel extends React.Component {
           <GridList cols={3} spacing={24}>
             {this.props.barcodes.map(tile => (
               <GridListTile key={tile._id}>
-                <img className={classes.image_tile} src={'/static/barcodes/' + tile._id + '/result.png'} alt={tile.value} />
+                <img className={classes.image_tile} src={'/public/barcodes/' + tile._id + '/result.png'} alt={tile.value} />
               </GridListTile>
             ))}
           </GridList>
