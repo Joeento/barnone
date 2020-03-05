@@ -1,57 +1,28 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
-import Modal from '@material-ui/core/Modal';
+import Modal from 'react-bootstrap/Modal';
 
-const styles = theme => ({
-  paper: {
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(4),
-    outline: 'none',
-  },
-  modal: {
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  loadingImage: {
-    display: 'block',
-    margin: 'auto'
-  }
-});
+import './UploadModal.css'
 
 class UploadModal extends React.Component {
   render() {
-    const classes = this.props.classes;
     return (
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={this.props.open}
-        onClose={this.props.handleClose}
-      >
-        <div className={`${classes.paper} ${classes.modal}`}>
-          <Typography variant="h6" id="modal-title">
-            Uploading Your Image(s)
-          </Typography>
-          <Typography variant="subtitle1" id="simple-modal-description">
-            Your file(s) are being uploaded and processed.  If any barcodes are found, they will appear in the right panel.
-          </Typography>
+      <Modal className='upload-modal' show={this.props.open} onHide={this.props.handleClose}>
+        <Modal.Header>
+          <Modal.Title>Uploading Your Image(s)</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <div>
-            <img className={classes.loadingImage} src="images/loading.gif" alt="Loading..." />
+            <p variant="subtitle1" id="simple-modal-description">
+              Your file(s) are being uploaded and processed.  If any barcodes are found, they will appear in the right panel.
+            </p>
+            <div>
+              <img className='loading-image' src="images/loading.gif" alt="Loading..." />
+            </div>
           </div>
-        </div>
+        </Modal.Body>
       </Modal>
     );
   }
 }
 
-UploadModal.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(UploadModal);
+export default UploadModal;

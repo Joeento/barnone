@@ -1,37 +1,12 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import APIClient from '../apiClient'
 
-import Dropzone from 'react-dropzone'
+import Card from 'react-bootstrap/Card';
+import APIClient from '../apiClient';
 
-const styles = theme => ({
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    height: '80vh'
-  
-  },
-  dropzone_container: {
-    height: '100%'
-  },
-  dropzone_box: {
-    height: '100%',
-    position: 'relative',
-    backgroundColor: '#EFEFEF',
-    border: '2px dashed rgba(0, 0, 0, 0.54)',
-    borderRadius: '10px'
-  },
-  dropzone_text: {
-    position: 'absolute',
-    top: '50%',
-    width: '100%',
-    transform: 'translateY(-50%)',
-    fontSize: '1.5em'
-  }
-});
+import Dropzone from 'react-dropzone';
+
+import './UploadPanel.css';
 
 class UploadPanel extends React.Component {
   constructor(props) {
@@ -59,27 +34,21 @@ class UploadPanel extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <Paper className={classes.paper}>
+      <Card className='upload-card'>
         <Dropzone  onDrop={this.handleUpload}>
           {({getRootProps, getInputProps}) => (
-            <section className={classes.dropzone_container}>
-              <div className={classes.dropzone_box} {...getRootProps()}>
+            <section className='dropzone-container' >
+              <div className='dropzone-box' {...getRootProps()}>
                 <input {...getInputProps()} />
-                <div className={classes.dropzone_text}>Drag 'n' drop some files here, or click to select files</div>
+                <div className='dropzone-text'>Drag 'n' drop some files here, or click to select files</div>
               </div>
             </section>
           )}
         </Dropzone>
-      </Paper>
+      </Card>
     );
   }
 }
 
-UploadPanel.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(UploadPanel);
+export default UploadPanel;

@@ -1,0 +1,23 @@
+.upload-card {
+  padding: 10px;
+  text-align: center;
+  color: theme.palette.text.secondary;
+  height: 90vh;
+}
+.dropzone-container {
+  height: 100%;
+}
+.dropzone-box {
+  height: 100%;
+  position: relative;
+  background-color: #EFEFEF;
+  border: 2px dashed rgba(0, 0, 0, 0.54);
+  border-radius: 10px;
+}
+.dropzone-text {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+  font-size: 1.5em;
+}

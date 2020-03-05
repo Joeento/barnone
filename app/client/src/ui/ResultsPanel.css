@@ -1,0 +1,13 @@
+.results-card {
+  height: 90vh;
+  padding: 1vh;
+  text-align: center;
+  overflow-y: auto;
+}
+.barcode-image-container {
+  height: 200px;
+}
+.barcode-image {
+  width: 100%;
+  height: auto;
+}

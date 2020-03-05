@@ -1,49 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 
-
-const styles = theme => ({
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary
-  },
-  results: {
-    maxHeight: '80vh', 
-    overflowY: 'auto'
-  },
-  image_tile: {
-    width: '100%',
-    height: 'auto'
-  }
-});
+import './ResultsPanel.css';
 
 class ResultsPanel extends React.Component {
   render() {
-    const { classes } = this.props;
-
     return (
-      <Paper className={classes.paper}>
-        <div className={classes.results}>
-          <GridList cols={3} spacing={24}>
+      <Card className='results-card'>
+        <Card.Body>
+          <Row>
             {this.props.barcodes.map(tile => (
-              <GridListTile key={tile._id}>
-                <img className={classes.image_tile} src={'/public/barcodes/' + tile._id + '/result.png'} alt={tile.value} />
-              </GridListTile>
+              <Col key={tile._id} md={4}>
+                <div className='barcode-image-container'>
+                  <img className='barcode-image' src={'/public/barcodes/' + tile._id + '/result.png'} alt={tile.value} />
+                </div>
+              </Col>
             ))}
-          </GridList>
-        </div>
-      </Paper>
+          </Row>
+        </Card.Body>
+      </Card>
     );
   }
 }
 
-ResultsPanel.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(ResultsPanel);
+export default ResultsPanel;

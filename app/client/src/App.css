@@ -23,6 +23,11 @@
   color: #61dafb;
 }
 
+.fab-container.export-fab {
+  bottom: 40px;
+  right: 40px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
