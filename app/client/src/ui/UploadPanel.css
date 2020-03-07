@@ -1,8 +1,8 @@
 .upload-card {
   padding: 10px;
   text-align: center;
-  color: theme.palette.text.secondary;
-  height: 90vh;
+  color: #424242;
+  height: 88vh;
 }
 .dropzone-container {
   height: 100%;

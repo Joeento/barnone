@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -14,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import cogoToast from 'cogo-toast';
 
-import { Container, Button, Link } from 'react-floating-action-button';
+import { Container as FabContainer, Button, Link } from 'react-floating-action-button';
 
 import APIClient from './apiClient'
 
@@ -69,26 +70,27 @@ class App extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-        <div className="root">
+        <div>
           <NavBar />
-
-          <Row  container spacing={2} >
-            <Col xs={6}>
-              <UploadPanel setBarcodes={this.setBarcodes} openUploadModal={this.openUploadModal} closeUploadModal={this.closeUploadModal} />
-            </Col>
-            <Col xs={6}>
-              <ResultsPanel barcodes={this.state.barcodes} />
-            </Col>
-          </Row>
+          <Container fluid className='panels-container'>
+            <Row>
+              <Col xs={6}>
+                <UploadPanel setBarcodes={this.setBarcodes} openUploadModal={this.openUploadModal} closeUploadModal={this.closeUploadModal} />
+              </Col>
+              <Col xs={6}>
+                <ResultsPanel barcodes={this.state.barcodes} />
+              </Col>
+            </Row>
+          </Container>
 
           <UploadModal open={this.state.uploadModalOpen} handleClose={this.closeUploadModal} />
-          <Container className="export-fab">
+          <FabContainer className="export-fab">
               <Link
                tooltip="Export Barcodes to PDF"
                href="/api/barcodes/pdf">
                  <FontAwesomeIcon icon={faDownload} size="lg" />
               </Link>
-          </Container>
+          </FabContainer>
         </div>
     );
   }
