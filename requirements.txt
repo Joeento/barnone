@@ -4,7 +4,7 @@ Flask-Cors==3.0.8
 fpdf==1.7.2
 imutils==0.5.3
 itsdangerous==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 marshmallow==3.3.0
 numpy==1.17.4
