@@ -7,7 +7,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.3
 MarkupSafe==1.1.1
 marshmallow==3.3.0
-numpy==1.17.4
+numpy==1.22.0
 Pillow==6.2.1
 pymongo==3.10.0
 python-barcode==0.10.0
